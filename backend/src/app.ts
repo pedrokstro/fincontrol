@@ -11,6 +11,9 @@ import { logger } from '@/utils/logger';
 
 const app: Application = express();
 
+// Trust proxy (necessário para Render, Heroku, etc)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 app.use(

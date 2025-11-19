@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DATABASE_URL ? undefined : config.db.username,
   password: process.env.DATABASE_URL ? undefined : config.db.password,
   database: process.env.DATABASE_URL ? undefined : config.db.database,
-  synchronize: config.nodeEnv === 'development', // Only in dev
+  synchronize: true, // Criar tabelas automaticamente (TEMPORÁRIO)
   logging: config.nodeEnv === 'development',
   entities: [User, Category, Transaction, RefreshToken, UserPreference, VerificationCode, Notification],
   migrations: ['src/database/migrations/**/*.ts'],
