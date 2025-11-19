@@ -17,9 +17,11 @@ class EmailService {
     // Para produção, use um serviço real como Gmail, SendGrid, etc.
     
     if (config.nodeEnv === 'production') {
-      // Configuração para produção (exemplo com Gmail)
+      // Configuração para produção (Gmail com SSL na porta 465)
       this.transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // SSL
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASSWORD,
