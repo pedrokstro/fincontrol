@@ -16,10 +16,11 @@ export const AppDataSource = new DataSource({
   username: process.env.DATABASE_URL ? undefined : config.db.username,
   password: process.env.DATABASE_URL ? undefined : config.db.password,
   database: process.env.DATABASE_URL ? undefined : config.db.database,
-  synchronize: true, // Criar tabelas automaticamente (TEMPORÁRIO)
+  synchronize: false, // DESABILITADO - Usar migrations
   logging: config.nodeEnv === 'development',
   entities: [User, Category, Transaction, RefreshToken, UserPreference, VerificationCode, Notification],
-  migrations: ['src/database/migrations/**/*.ts'],
+  migrations: ['dist/database/migrations/**/*.js'],
+  migrationsRun: true, // Executar migrations automaticamente
   subscribers: [],
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : undefined,
   extra: {
