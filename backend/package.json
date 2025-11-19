@@ -34,6 +34,7 @@
   "author": "FinControl Team",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
     "@types/nodemailer": "^7.0.3",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
@@ -58,15 +59,16 @@
     "pg": "^8.11.3",
     "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.1",
+    "resend": "^6.5.2",
     "sharp": "^0.33.1",
     "speakeasy": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "typeorm": "^0.3.19",
-    "uuid": "^9.0.1",
-    "winston": "^3.11.0",
     "tsc-alias": "^1.8.8",
-    "typescript": "^5.3.3"
+    "typeorm": "^0.3.19",
+    "typescript": "^5.3.3",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
