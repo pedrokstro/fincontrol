@@ -10,10 +10,17 @@ export const formatCurrency = (value: number): string => {
 
 /**
  * Formata uma data para o padrão brasileiro
+ * Trata strings no formato YYYY-MM-DD como data local, não UTC
  */
 export const formatDate = (date: string | Date): string => {
-  const d = new Date(date)
-  return new Intl.DateFormat('pt-BR').format(d)
+  if (typeof date === 'string') {
+    // Se for string no formato YYYY-MM-DD, trata como data local
+    const [year, month, day] = date.split('-').map(Number)
+    const d = new Date(year, month - 1, day)
+    return d.toLocaleDateString('pt-BR')
+  }
+  const d = typeof date === 'string' ? new Date(date) : date
+  return d.toLocaleDateString('pt-BR')
 }
 
 /**
