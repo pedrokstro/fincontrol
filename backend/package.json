@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc && tsc-alias",
-    "start": "node dist/server.js",
+    "start": "node dist/scripts/runMigrations.js && node dist/server.js",
+    "start:server": "node dist/server.js",
+    "migrate": "node dist/scripts/runMigrations.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:e2e": "jest --config jest.e2e.config.js",

@@ -22,7 +22,7 @@ export const AppDataSource = new DataSource({
   migrations: config.nodeEnv === 'production' 
     ? ['dist/database/migrations/**/*.js'] 
     : ['src/database/migrations/**/*.ts'],
-  migrationsRun: true, // Executar migrations automaticamente
+  migrationsRun: false, // Migrations rodadas via script separado
   subscribers: [],
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : undefined,
   extra: {
