@@ -185,9 +185,9 @@ const Dashboard = () => {
     const dateValue: any = data.date;
     const recurrenceEndDateValue: any = data.recurrenceEndDate;
     
-    console.log('📅 [FRONTEND DEBUG] Data do formulário:', dateValue)
-    console.log('📅 [FRONTEND DEBUG] Tipo:', typeof dateValue)
-    console.log('📅 [FRONTEND DEBUG] instanceof Date:', dateValue instanceof Date)
+    console.log('📅 [FRONTEND DEBUG v2] Data do formulário:', dateValue)
+    console.log('📅 [FRONTEND DEBUG v2] Tipo:', typeof dateValue)
+    console.log('📅 [FRONTEND DEBUG v2] instanceof Date:', dateValue instanceof Date)
     
     // Garantir que a data seja sempre string no formato YYYY-MM-DD (timezone local)
     const dateString = typeof dateValue === 'string' 
