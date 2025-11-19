@@ -130,7 +130,10 @@ const Dashboard = () => {
     resolver: zodResolver(transactionSchema),
     defaultValues: {
       type: 'expense',
-      date: format(new Date(), 'yyyy-MM-dd'),
+      date: (() => {
+        const today = new Date();
+        return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      })(),
     },
   })
 
@@ -1063,7 +1066,15 @@ const Dashboard = () => {
                   Data
                 </label>
                 <input
-                  {...register('date')}
+                  {...register('date', { 
+                    setValueAs: (value) => {
+                      // Garantir que sempre retorne string, não Date
+                      if (value instanceof Date) {
+                        return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
+                      }
+                      return value;
+                    }
+                  })}
                   type="date"
                   className="w-full px-4 py-2.5 text-gray-900 dark:text-white bg-gray-50 dark:bg-neutral-900 border border-gray-300 dark:border-neutral-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all"
                 />
@@ -1119,7 +1130,15 @@ const Dashboard = () => {
                         Data Final (opcional)
                       </label>
                       <input
-                        {...register('recurrenceEndDate')}
+                        {...register('recurrenceEndDate', {
+                          setValueAs: (value) => {
+                            // Garantir que sempre retorne string, não Date
+                            if (value instanceof Date) {
+                              return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
+                            }
+                            return value;
+                          }
+                        })}
                         type="date"
                         className="w-full px-4 py-2.5 text-gray-900 dark:text-white bg-gray-50 dark:bg-neutral-900 border border-gray-300 dark:border-neutral-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all"
                       />

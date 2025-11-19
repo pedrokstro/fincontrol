@@ -19,7 +19,9 @@ export const AppDataSource = new DataSource({
   synchronize: false, // DESABILITADO - Usar migrations
   logging: config.nodeEnv === 'development',
   entities: [User, Category, Transaction, RefreshToken, UserPreference, VerificationCode, Notification],
-  migrations: ['dist/database/migrations/**/*.js'],
+  migrations: config.nodeEnv === 'production' 
+    ? ['dist/database/migrations/**/*.js'] 
+    : ['src/database/migrations/**/*.ts'],
   migrationsRun: true, // Executar migrations automaticamente
   subscribers: [],
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : undefined,
