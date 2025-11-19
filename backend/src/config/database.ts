@@ -10,16 +10,18 @@ import { Notification } from '@/models/Notification';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: config.db.host,
-  port: config.db.port,
-  username: config.db.username,
-  password: config.db.password,
-  database: config.db.database,
+  url: process.env.DATABASE_URL || undefined,
+  host: process.env.DATABASE_URL ? undefined : config.db.host,
+  port: process.env.DATABASE_URL ? undefined : config.db.port,
+  username: process.env.DATABASE_URL ? undefined : config.db.username,
+  password: process.env.DATABASE_URL ? undefined : config.db.password,
+  database: process.env.DATABASE_URL ? undefined : config.db.database,
   synchronize: config.nodeEnv === 'development', // Only in dev
   logging: config.nodeEnv === 'development',
   entities: [User, Category, Transaction, RefreshToken, UserPreference, VerificationCode, Notification],
   migrations: ['src/database/migrations/**/*.ts'],
   subscribers: [],
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : undefined,
   extra: {
     // Configurar timezone para UTC
     timezone: 'UTC',
