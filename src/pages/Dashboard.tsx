@@ -186,18 +186,18 @@ const Dashboard = () => {
     console.log('📅 [FRONTEND DEBUG] Tipo:', typeof dateValue)
     console.log('📅 [FRONTEND DEBUG] instanceof Date:', dateValue instanceof Date)
     
-    // Garantir que a data seja sempre string
+    // Garantir que a data seja sempre string no formato YYYY-MM-DD (timezone local)
     const dateString = typeof dateValue === 'string' 
       ? dateValue 
       : dateValue instanceof Date
-        ? format(dateValue, 'yyyy-MM-dd')
+        ? `${dateValue.getFullYear()}-${String(dateValue.getMonth() + 1).padStart(2, '0')}-${String(dateValue.getDate()).padStart(2, '0')}`
         : dateValue;
     
     const recurrenceEndDateString = recurrenceEndDateValue
       ? (typeof recurrenceEndDateValue === 'string'
           ? recurrenceEndDateValue
           : recurrenceEndDateValue instanceof Date
-            ? format(recurrenceEndDateValue, 'yyyy-MM-dd')
+            ? `${recurrenceEndDateValue.getFullYear()}-${String(recurrenceEndDateValue.getMonth() + 1).padStart(2, '0')}-${String(recurrenceEndDateValue.getDate()).padStart(2, '0')}`
             : recurrenceEndDateValue)
       : undefined;
     
