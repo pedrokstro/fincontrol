@@ -2,16 +2,12 @@ import { Router } from 'express';
 import * as transactionController from '@/controllers/transaction.controller';
 import { authenticate } from '@/middlewares/auth.middleware';
 import { validate, validateQuery } from '@/middlewares/validation.middleware';
-import { adjustTransactionDate } from '@/middlewares/dateAdjust.middleware';
 import { createTransactionSchema, updateTransactionSchema, filterTransactionsSchema } from '@/validators/transaction.validator';
 
 const router = Router();
 
 // Todas as rotas de transação requerem autenticação
 router.use(authenticate);
-
-// Middleware para ajustar datas (+1 dia)
-router.use(adjustTransactionDate);
 
 /**
  * @swagger
