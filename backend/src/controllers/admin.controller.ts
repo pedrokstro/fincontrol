@@ -97,7 +97,7 @@ export class AdminController {
       }
 
       // Criar notificações para todos os usuários
-      const notifications = [];
+      const notifications: any[] = [];
       for (const user of users) {
         const notification = await notificationService.create(
           user.id,

@@ -50,7 +50,7 @@ export const requireAdmin = async (
     }
 
     // Adicionar informações do admin ao request
-    req.user.isAdmin = true;
+    (req.user as any).isAdmin = true;
     next();
   } catch (error) {
     console.error('Erro no middleware de admin:', error);
