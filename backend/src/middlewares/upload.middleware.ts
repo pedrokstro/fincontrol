@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 });
 
 // Filtro de tipos de arquivo
-const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const fileFilter = (req: any, file: any, cb: multer.FileFilterCallback) => {
   if (config.upload.allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {

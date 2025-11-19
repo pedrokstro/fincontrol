@@ -49,7 +49,7 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  async uploadAvatar(userId: string, file: Express.Multer.File) {
+  async uploadAvatar(userId: string, file: any) {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundError('Usuário não encontrado');
