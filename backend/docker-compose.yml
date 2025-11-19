@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14-alpine
+    container_name: fincontrol-postgres
+    environment:
+      POSTGRES_DB: fincontrol_db
+      POSTGRES_USER: fincontrol
+      POSTGRES_PASSWORD: fincontrol_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fincontrol"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fincontrol-network
+
+  # Backend API (opcional - para produção)
+  # backend:
+  #   build: .
+  #   container_name: fincontrol-backend
+  #   environment:
+  #     NODE_ENV: production
+  #     PORT: 5000
+  #     DB_HOST: postgres
+  #     DB_PORT: 5432
+  #     DB_USERNAME: fincontrol
+  #     DB_PASSWORD: fincontrol_password
+  #     DB_DATABASE: fincontrol_db
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./uploads:/app/uploads
+  #     - ./logs:/app/logs
+  #   networks:
+  #     - fincontrol-network
+  #   restart: unless-stopped
+
+  # pgAdmin (opcional - para gerenciar o banco)
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   container_name: fincontrol-pgadmin
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@fincontrol.com
+  #     PGADMIN_DEFAULT_PASSWORD: admin123
+  #   ports:
+  #     - "5050:80"
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - fincontrol-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  fincontrol-network:
+    driver: bridge
