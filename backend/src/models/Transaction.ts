@@ -40,28 +40,11 @@ export class Transaction {
   description: string;
 
   @Column({ 
-    type: 'date',
-    transformer: {
-      to: (value: any) => {
-        // Ao salvar: manter como string se vier como string
-        if (typeof value === 'string') {
-          return value;
-        }
-        return value;
-      },
-      from: (value: any) => {
-        // Ao ler: retornar apenas a parte da data (YYYY-MM-DD)
-        if (value instanceof Date) {
-          const year = value.getFullYear();
-          const month = String(value.getMonth() + 1).padStart(2, '0');
-          const day = String(value.getDate()).padStart(2, '0');
-          return `${year}-${month}-${day}`;
-        }
-        return value;
-      }
-    }
+    type: 'varchar',
+    length: 10,
+    comment: 'Data no formato YYYY-MM-DD'
   })
-  date: Date;
+  date: string;
 
   @Column({ type: 'uuid' })
   categoryId: string;
