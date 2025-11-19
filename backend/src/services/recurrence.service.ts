@@ -62,11 +62,14 @@ export class RecurrenceService {
           }
 
           // Criar nova transação baseada na recorrente
+          const nextDate = new Date(transaction.nextOccurrence!);
+          const dateString = `${nextDate.getFullYear()}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(nextDate.getDate()).padStart(2, '0')}`;
+          
           const newTransaction = this.transactionRepository.create({
             type: transaction.type,
             amount: transaction.amount,
             description: transaction.description,
-            date: transaction.nextOccurrence!,
+            date: dateString,
             categoryId: transaction.categoryId,
             userId: transaction.userId,
             isRecurring: false, // Transações geradas não são recorrentes

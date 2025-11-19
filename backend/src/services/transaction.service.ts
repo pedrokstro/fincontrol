@@ -206,8 +206,10 @@ export class TransactionService {
     const targetMonth = month || now.getMonth() + 1;
     const targetYear = year || now.getFullYear();
     
-    const startOfMonth = new Date(targetYear, targetMonth - 1, 1);
-    const endOfMonth = new Date(targetYear, targetMonth, 0, 23, 59, 59, 999);
+    // Criar strings de data no formato YYYY-MM-DD
+    const startOfMonth = `${targetYear}-${String(targetMonth).padStart(2, '0')}-01`;
+    const lastDay = new Date(targetYear, targetMonth, 0).getDate();
+    const endOfMonth = `${targetYear}-${String(targetMonth).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
 
     const transactions = await this.transactionRepository.find({
       where: {
